@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Multi screen resolution checker (beta)</title>
+<link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
+<link rel="stylesheet" href="codemirror-5.6/lib/codemirror.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="codemirror-5.6/lib/codemirror.js"></script>
+<script src="codemirror-5.6/mode/css/css.js"></script>
+<script src="js/script.js"></script>
+</head>
+
+<body>
+<div id="container">
+	<header>
+		<h1>Multi screen resolutions checker (beta)</h1>
+	</header>
+	<div id="main">
+		<section>
+			<div id="top">
+				<ol>
+					<li>
+						<div>
+							<h2>Detect Target</h2>
+							<p>Upload target HTML file.</p>
+							<div>
+								<input type="file" id="top_target">
+							</div>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h2>Detect Resolutions</h2>
+							<p>It can change later.</p>
+							<div class="clearfix">
+								<div>
+									<div>
+										<select id="top_resolutions" multiple="multiple">
+											<option value="320 x 568">320 x 568</option>
+											<option value="1280 x 1024">1280 x 1024</option>
+										</select>
+									</div>
+									<div><button id="top_delete">Delete selection</button></div>
+								</div>
+								<div>
+									<div><input type="number" id="top_width"> x <input type="number" id="top_height"></div>
+									<div><button id="top_add">Add new</button></div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div id="top_buttons">
+				<button id="top_done">Check!</button>
+				<label><input type="checkbox" id="top_editmode">Edit Mode</label>
+			</div>
+		</section>
+		<section>
+			<div id="checker">
+				<ul class="horizon_list">
+					<li>
+						<div>
+							<h2>320 x 568</h2>
+							<div><iframe src="about:blank"></iframe></div>
+						</div>
+					</li>
+					<li>
+						<div>
+							<h2>1280 x 1024</h2>
+							<div><iframe src="about:blank"></iframe></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div id="styleeditor" class="dialog">
+				<div><h2>Style</h2></div>
+				<div class="clearfix">
+					<div class="left">
+						<section>
+							<h3>Selector</h3>
+							<div><input type="text" id="styleeditor_selector"></div>
+						</section>
+						<section>
+							<h3>margin</h3>
+							<div>
+								<div>
+									<div></div>
+									<div><input type="number" id="styleeditor_margintop"></div>
+									<div></div>
+								</div>
+								<div>
+									<div><input type="number" id="styleeditor_marginleft"></div>
+									<div></div>
+									<div><input type="number" id="styleeditor_marginright"></div>
+								</div>
+								<div>
+									<div></div>
+									<div><input type="number" id="styleeditor_marginbottom"></div>
+									<div></div>
+								</div>
+							</div>
+						</section>
+						<section>
+							<h3>padding</h3>
+							<div>
+								<div>
+									<div></div>
+									<div><input type="number" id="styleeditor_paddingtop"></div>
+									<div></div>
+								</div>
+								<div>
+									<div><input type="number" id="styleeditor_paddingleft"></div>
+									<div></div>
+									<div><input type="number" id="styleeditor_paddingright"></div>
+								</div>
+								<div>
+									<div></div>
+									<div><input type="number" id="styleeditor_paddingbottom"></div>
+									<div></div>
+								</div>
+							</div>
+						</section>
+						<section>
+							<h3>width, height</h3>
+							<div><input type="number" id="styleeditor_width"> x <input type="number" id="styleeditor_height"></div>
+						</section>
+					</div>
+					<div class="right">
+						<textarea id="styleeditor_textarea"></textarea>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>
