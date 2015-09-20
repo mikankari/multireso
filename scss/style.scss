@@ -1,0 +1,87 @@
+@import "compass";
+
+$default_margin: 1.25rem;
+
+html{
+	font-size: 0.875em;
+}
+
+body{
+	margin: 0px;
+}
+
+#container{
+	padding: $default_margin;
+}
+
+h1, h2{
+	font-weight: normal;
+	margin: 0em;
+}
+
+p{
+	margin: 0em;
+}
+
+h1{
+	font-size: 2.0rem;
+}
+
+h2{
+	font-size: 1.5em;
+//	margin-left: -20px;
+	border-bottom: 1px solid #cccccc;
+}
+
+p{
+	margin: 0em;
+}
+
+section{
+	margin: 0em;
+	padding: 0em;
+}
+
+ul,ol{
+	margin-left: 0em;
+	padding-left: 0em;
+	li{
+		margin-left: 0em;
+		padding-left: 0em;
+	}
+}
+
+.clearfix{
+	@include clearfix();
+	&>div{
+		float: left;
+	}
+}
+
+header{
+	h1{
+		padding-bottom: $default_margin;
+	}
+}
+
+#top{
+	li{
+		font-size: 1.5em;
+		list-style-position: inside;
+		&>div{
+			font-size: 1.0rem;
+			&>*:not(h2){
+				margin-left: $default_margin;
+			}
+			&>div{
+				padding: $default_margin 0em;
+			}
+		}
+		
+	}
+}
+
+#top_buttons{
+	border-top: 1px solid #cccccc;
+	padding: $default_margin 0em $default_margin $default_margin;
+}
