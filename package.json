@@ -1,0 +1,12 @@
+{
+    "name": "jp.ac.kanagawa-it.s1223066.multireso",
+    "title": "Multi resolutions checker",
+    "description": "",
+    "homepage": "", // URL for your project
+    "version": "1.0.0",
+    "author": "",
+    "license": "MIT",
+    "engines": {
+        "brackets": ">=0.20.0"
+    }
+}
