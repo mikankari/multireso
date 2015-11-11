@@ -1,33 +1,32 @@
 define(function(require, exports, module) {
   "use strict";
-  var LiveDevMultiBrowser, LiveDevServerManager, LiveDevelopment, LiveDevelopmentUtils, NativeApp, NodeDomain, PreferencesManager, ProjectManager, UserServer, icon, iconClicked, nodedomain;
-  console.log("initializing multireso extension...");
-  LiveDevelopment = brackets.getModule("LiveDevelopment/LiveDevelopment");
+  var DefaultLauncher, LiveDevMultiBrowser, LiveDevelopment, NativeApp, PreferencesManager, icon, iconClicked;
   LiveDevMultiBrowser = brackets.getModule("LiveDevelopment/LiveDevMultiBrowser");
-  LiveDevServerManager = brackets.getModule("LiveDevelopment/LiveDevServerManager");
-  LiveDevelopmentUtils = brackets.getModule("LiveDevelopment/LiveDevelopmentUtils");
-  ProjectManager = brackets.getModule("project/ProjectManager");
-  UserServer = brackets.getModule("LiveDevelopment/Servers/UserServer");
-  UserServer = UserServer.UserServer;
+  LiveDevelopment = brackets.getModule("LiveDevelopment/LiveDevelopment");
+  DefaultLauncher = brackets.getModule("LiveDevelopment/MultiBrowserImpl/launchers/Launcher");
   NativeApp = brackets.getModule("utils/NativeApp");
   PreferencesManager = brackets.getModule("preferences/PreferencesManager");
-  NodeDomain = brackets.getModule("utils/NodeDomain");
-  nodedomain = new NodeDomain("launcher", "/Applications/Brackets.app/Contents/www/LiveDevelopment/MultiBrowserImpl/launchers/node/LauncherDomain");
   iconClicked = function(event) {
     var multibrowser;
     multibrowser = PreferencesManager.getExtensionPrefs("livedev").get("multibrowser");
     if (multibrowser) {
       if (!LiveDevMultiBrowser.isActive()) {
+        icon.css("backgroundPosition", "0px -24px");
         LiveDevMultiBrowser.setLauncher({
           launch: function(url) {
-            return NativeApp.openURLInDefaultBrowser("file:///Applications/Brackets.app/Contents/www/extensions/dev/multireso/index.html?launch_url=" + url);
+            return NativeApp.openURLInDefaultBrowser("file:///Applications/Brackets.app/Contents/www/extensions/dev/multireso/www/index.html?launch_url=" + url);
           }
         });
         LiveDevMultiBrowser.open();
       } else {
+        icon.css("backgroundPosition", "0px 0px");
         LiveDevMultiBrowser.close();
+        LiveDevMultiBrowser.setLauncher(DefaultLauncher);
       }
     }
   };
-  icon = $("<a href=\"#\"></a>").on("click", iconClicked).appendTo($("#main-toolbar .buttons"));
+  icon = $("<a href=\"#\"></a>").css({
+    backgroundImage: "url(file:///Applications/Brackets.app/Contents/www/extensions/dev/multireso/button-sprites.svg)",
+    backgroundPosition: "0px 0px"
+  }).on("click", iconClicked).appendTo($("#main-toolbar .buttons"));
 });
