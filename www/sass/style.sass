@@ -1,0 +1,242 @@
+@import compass
+
+$default_margin: 1.25rem
+$default_margin_px: 20px
+$base_fontsize: 0.875rem
+
+html
+	font-size: $base_fontsize
+
+
+body
+	margin: 0px
+
+
+#container
+	padding: $default_margin
+//	width: 1282px * 2 + $default_margin_px
+
+
+h1, h2, h3
+	font-weight: normal
+	margin: 0em
+
+
+p
+	margin: 0em
+
+
+h1
+	font-size: 2.0rem
+
+
+h2
+	font-size: 1.5rem
+
+
+ul,ol
+	margin: 0px
+	padding-left: 0em
+	li
+		margin-left: 0em
+		padding-left: 0em
+		list-style-type: none
+	
+
+
+input[type=number]
+	width: 60px
+	margin: $default_margin / 8
+
+
+button
+	background-image: linear-gradient(#ffffff, #cccccc)
+	border: 1px solid #666666
+	border-radius: 3px
+	padding: 2px 6px 3px
+
+
+// General
+
+.clearfix
+	@include clearfix()
+	&>div
+		float: left
+	
+	&>div:not(:last-child)
+		margin-right: $default_margin
+	
+
+
+.table
+	display: table
+	&>div
+		display: table-row
+		&>div
+			display: table-cell
+			min-width: 60px
+		
+	
+
+
+input[type="checkbox"]
+	$type: "linear"
+	display: none
+	+label
+		background-image: #$type-gradient(#cccccc, #999999)
+		border: 1px solid #666666
+		border-radius: 3px
+		padding: 2px 6px 3px
+	
+	&:checked+label
+		background-image: #$type-gradient(#cccccc, #ffffff)
+
+	
+
+
+.dialog
+	header
+		background-image: linear-gradient(#666666, #333333)
+		color: #ffffff
+		line-height: 30px
+		padding: 0px $default_margin / 2
+		h2
+			font-size: 0.875rem
+			font-weight: bold
+
+		
+	
+	header+div
+		background-color: #eeeeee
+		border: 1px solid #666666
+		padding: $default_margin
+	
+
+
+
+// Partial
+
+header
+	h1
+		padding-bottom: $default_margin
+	
+
+
+#top
+	li
+		font-size: 1.5em
+		list-style-type: decimal
+		list-style-position: inside
+		&>div
+			font-size: 1.0rem
+			h2
+				border-bottom: 1px solid #cccccc
+			
+			&>*:not(h2)
+				margin-left: $default_margin
+			
+			.h2_content
+				padding: $default_margin 0em
+			
+		
+		#top_target
+			width: 174px * 2
+		
+		#top_resolutions
+			width: 100%
+			height: 100%
+		
+		#top_width, #top_height
+			width: 60px
+		
+		.controls
+			text-align: center
+			line-height: 90px
+			width: 174px
+			height: 90px
+		
+		.buttons
+			text-align: center
+			margin-top: $default_margin
+		
+		.h2_content>div
+			margin-right: $default_margin
+		
+	
+
+
+#top_buttons
+	border-top: 1px solid #cccccc
+	padding: $default_margin 0em $default_margin $default_margin
+	&>*:not(:last-child)
+		margin-right: $default_margin - $base_fontsize / 2
+	
+	#top_done+label, #top_done:checked+label
+		background-image: linear-gradient(#ffffff, #cccccc)
+	
+
+
+#checker
+	.content
+		line-height: 0em
+	
+	.clearfix
+		width: (1282px + $default_margin_px) * 2
+	
+	iframe
+		border: 1px solid #000000
+	
+	.tab
+		$type: "linear"
+		input[type="radio"]
+			display: none
+		
+		label div
+			background-image: #$type-gradient(#cccccc, #999999)
+			border: 1px solid #666666
+			border-bottom: 0px
+			border-top-left-radius: 10px
+			border-top-right-radius: 10px
+			padding: 0px 10px
+			line-height: 30px
+			display: inline-block
+		
+		input[type="radio"]:checked+label div
+			background-image: #$type-gradient(#cccccc, #ffffff)
+		
+	
+
+
+#styleeditor
+	position: absolute
+	left: 200px
+	top: 200px
+	z-index: 100
+	textarea, .CodeMirror
+		width: 210px
+		border: 1px solid #999999
+		font-size: 1.182rem
+	
+	h3
+		background-color: #cccccc
+	
+	section:nth-child(1) h3, section:nth-child(2) h3
+		background-color: transparent
+		border-bottom: 1px solid #cccccc
+	
+	h3+div
+		margin: $default_margin / 2 0px
+	
+	.buttons
+//		text-align: center
+//		margin-top: $default_margin
+//		padding-top: $default_margin
+//		border-top: 1px solid #cccccc
+		position: absolute
+		z-index: 110
+		right: 4px
+		top: 3px
+		button
+			background-image: linear-gradient(#ebadad, #d65c5c)
+		
+	

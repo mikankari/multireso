@@ -12,8 +12,8 @@ init = (event) ->
 	top_done = document.querySelector "#top_done"
 	top_done.addEventListener "change", topDoneClicked, false
 
-	top_editmode = document.querySelector "#top_editmode"
-	top_editmode.addEventListener "change", topEditmodeClicked, false
+#	top_editmode = document.querySelector "#top_editmode"
+#	top_editmode.addEventListener "change", topEditmodeClicked, false
 
 	checker = document.querySelector "#checker"
 
@@ -52,20 +52,20 @@ init = (event) ->
 		return
 	, false
 
-	styleeditor = document.querySelector "#styleeditor"
-	styleeditor.addEventListener "dragend", (event) ->
-		for key, value of {
-			left: "#{event.pageX - 0}px"
-			top: "#{event.pageY - 0}px"
-		} then styleeditor.style[key] = value
-	, false
-	styleeditor_close = document.querySelector "#styleeditor_close"
-	styleeditor_close.addEventListener "click", (event) ->
-		top_editmode.click();
-	,false
+#	styleeditor = document.querySelector "#styleeditor"
+#	styleeditor.addEventListener "dragend", (event) ->
+#		for key, value of {
+#			left: "#{event.pageX - 0}px"
+#			top: "#{event.pageY - 0}px"
+#		} then styleeditor.style[key] = value
+#	, false
+#	styleeditor_close = document.querySelector "#styleeditor_close"
+#	styleeditor_close.addEventListener "click", (event) ->
+#		top_editmode.click();
+#	,false
 
 	topDoneClicked {target: top_done}
-	topEditmodeClicked {target: top_editmode}
+#	topEditmodeClicked {target: top_editmode}
 
 	target = window.location.search.substring "?launch_url=".length
 	resolutions = []
@@ -83,7 +83,7 @@ topDoneClicked = (event) ->
 		top_done.nextSibling.innerHTML = "Back"
 		top.style.display = "none"
 		checker.style.display = "block"
-		top_editmode.nextSibling.style.display = "inline"
+#		top_editmode.nextSibling.style.display = "inline"
 
 		top_target = document.querySelector "#top_target"
 		target = top_target.value
@@ -116,8 +116,8 @@ topDoneClicked = (event) ->
 		top_done.nextSibling.innerHTML = "Check!"
 		top.style.display = "block"
 		checker.style.display = "none"
-		top_editmode.nextSibling.style.display = "none"
-		if top_editmode.checked then top_editmode.click()
+#		top_editmode.nextSibling.style.display = "none"
+#		if top_editmode.checked then top_editmode.click()
 	return
 
 topEditmodeClicked = (event) ->

@@ -16,12 +16,10 @@
   resolutions = null;
 
   init = function(event) {
-    var styleeditor, styleeditor_close, top_add, top_delete, top_done, top_target;
+    var top_add, top_delete, top_done, top_target;
     top = document.querySelector("#top");
     top_done = document.querySelector("#top_done");
     top_done.addEventListener("change", topDoneClicked, false);
-    top_editmode = document.querySelector("#top_editmode");
-    top_editmode.addEventListener("change", topEditmodeClicked, false);
     checker = document.querySelector("#checker");
     iframes = [document.querySelector("#checker .first iframe"), document.querySelector("#checker .second iframe")];
     tabs = [document.querySelector("#checker .first .tab"), document.querySelector("#checker .second .tab")];
@@ -50,29 +48,8 @@
       top_resolutions = document.querySelector("#top_resolutions");
       top_resolutions.appendChild(option);
     }, false);
-    styleeditor = document.querySelector("#styleeditor");
-    styleeditor.addEventListener("dragend", function(event) {
-      var key, value, _ref, _results;
-      _ref = {
-        left: "" + (event.pageX - 0) + "px",
-        top: "" + (event.pageY - 0) + "px"
-      };
-      _results = [];
-      for (key in _ref) {
-        value = _ref[key];
-        _results.push(styleeditor.style[key] = value);
-      }
-      return _results;
-    }, false);
-    styleeditor_close = document.querySelector("#styleeditor_close");
-    styleeditor_close.addEventListener("click", function(event) {
-      return top_editmode.click();
-    }, false);
     topDoneClicked({
       target: top_done
-    });
-    topEditmodeClicked({
-      target: top_editmode
     });
     target = window.location.search.substring("?launch_url=".length);
     resolutions = [];
@@ -87,7 +64,6 @@
       top_done.nextSibling.innerHTML = "Back";
       top.style.display = "none";
       checker.style.display = "block";
-      top_editmode.nextSibling.style.display = "inline";
       top_target = document.querySelector("#top_target");
       target = top_target.value;
       top_resolutions = document.querySelector("#top_resolutions");
@@ -137,10 +113,6 @@
       top_done.nextSibling.innerHTML = "Check!";
       top.style.display = "block";
       checker.style.display = "none";
-      top_editmode.nextSibling.style.display = "none";
-      if (top_editmode.checked) {
-        top_editmode.click();
-      }
     }
   };
 

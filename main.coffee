@@ -7,6 +7,9 @@ define (require, exports, module) ->
 	DefaultLauncher = brackets.getModule "LiveDevelopment/MultiBrowserImpl/launchers/Launcher"
 	NativeApp = brackets.getModule "utils/NativeApp"
 	PreferencesManager = brackets.getModule "preferences/PreferencesManager"
+	ExtensionUtils = brackets.getModule "utils/ExtensionUtils"
+	console.log ExtensionUtils.getModulePath module, ""
+	console.log ExtensionUtils.getModuleUrl module, "www/"
 
 	iconClicked = (event) ->
 		multibrowser = PreferencesManager.getExtensionPrefs("livedev").get "multibrowser"
@@ -15,7 +18,7 @@ define (require, exports, module) ->
 				icon.css "backgroundPosition", "0px -24px"
 				LiveDevMultiBrowser.setLauncher {
 					launch: (url) ->
-						NativeApp.openURLInDefaultBrowser "file:///Applications/Brackets.app/Contents/www/extensions/dev/multireso/www/index.html?launch_url=#{url}"
+						NativeApp.openURLInDefaultBrowser "file://#{ExtensionUtils.getModulePath module}www/index.html?launch_url=#{url}"
 				}
 				LiveDevMultiBrowser.open()
 			else
@@ -30,7 +33,7 @@ define (require, exports, module) ->
 		return
 	
 	icon = $("<a href=\"#\"></a>").css({
-		backgroundImage: "url(file:///Applications/Brackets.app/Contents/www/extensions/dev/multireso/button-sprites.svg)"
+		backgroundImage: "url(file://#{ExtensionUtils.getModulePath module}button-sprites.svg)"
 		backgroundPosition: "0px 0px"
 	}).on("click", iconClicked).appendTo $ "#main-toolbar .buttons"
 	
