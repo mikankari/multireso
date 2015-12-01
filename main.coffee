@@ -8,8 +8,16 @@ define (require, exports, module) ->
 	NativeApp = brackets.getModule "utils/NativeApp"
 	PreferencesManager = brackets.getModule "preferences/PreferencesManager"
 	ExtensionUtils = brackets.getModule "utils/ExtensionUtils"
-	console.log ExtensionUtils.getModulePath module, ""
-	console.log ExtensionUtils.getModuleUrl module, "www/"
+	Dialogs = brackets.getModule "widgets/Dialogs"
+	DefaultDialogs = brackets.getModule "widgets/DefaultDialogs"
+	FileSystem = brackets.getModule "filesystem/FileSystem"
+	FileUtils = brackets.getModule "file/FileUtils"
+	
+	getModuleUrl = ->
+		if brackets.platform is "win"
+			ExtensionUtils.getModuleUrl module
+		else
+			"file://#{ExtensionUtils.getModulePath module}"
 
 	iconClicked = (event) ->
 		multibrowser = PreferencesManager.getExtensionPrefs("livedev").get "multibrowser"
@@ -18,14 +26,23 @@ define (require, exports, module) ->
 				icon.css "backgroundPosition", "0px -24px"
 				LiveDevMultiBrowser.setLauncher {
 					launch: (url) ->
-						NativeApp.openURLInDefaultBrowser "file://#{ExtensionUtils.getModulePath module}www/index.html?launch_url=#{url}"
+						file = FileSystem.getFileForPath "#{ExtensionUtils.getModulePath module}www/js/config.js"
+						console.log file
+						promise = FileUtils.writeText file, "window.launch_url=\"#{url}\";", true
+#						promise = FileUtils.writeText file, "writeText", true
+						promise.done =>
+	#						NativeApp.openURLInDefaultBrowser "file://#{ExtensionUtils.getModulePath module}www/index.html?launch_url=#{url}"
+							NativeApp.openURLInDefaultBrowser "#{getModuleUrl()}www/index.html"
 				}
 				LiveDevMultiBrowser.open()
 			else
 				icon.css "backgroundPosition", "0px 0px"
 				LiveDevMultiBrowser.close()
 				LiveDevMultiBrowser.setLauncher DefaultLauncher
-#		else
+		else
+			Dialogs.showModalDialog DefaultDialogs.DIALOG_ID_ERROR,
+				"つくってない",
+				"現在は試験ライブプレビューのみで動作します。<br>メニューのファイルから「試験ライブプレビューを有効にする」にチェックを入れて下さい。"
 #			LiveDevelopment.open().done ->
 #				console.log LiveDevelopment.getServerBaseUrl()
 #				NativeApp.openURLInDefaultBrowser "file:///Applications/Brackets.app/Contents/www/extensions/dev/multireso/index.html"
@@ -33,7 +50,8 @@ define (require, exports, module) ->
 		return
 	
 	icon = $("<a href=\"#\"></a>").css({
-		backgroundImage: "url(file://#{ExtensionUtils.getModulePath module}button-sprites.svg)"
+#		backgroundImage: "url(file://#{ExtensionUtils.getModulePath module}button-sprites.svg)"
+		backgroundImage: "url(#{getModuleUrl()}button-sprites.svg)"
 		backgroundPosition: "0px 0px"
 	}).on("click", iconClicked).appendTo $ "#main-toolbar .buttons"
 	

@@ -67,7 +67,8 @@ init = (event) ->
 	topDoneClicked {target: top_done}
 #	topEditmodeClicked {target: top_editmode}
 
-	target = window.location.search.substring "?launch_url=".length
+#	target = window.location.search.substring "?launch_url=".length
+	target = window.launch_url
 	resolutions = []
 
 #	for frame in iframes

@@ -51,7 +51,7 @@
     topDoneClicked({
       target: top_done
     });
-    target = window.location.search.substring("?launch_url=".length);
+    target = window.launch_url;
     resolutions = [];
     top_target = document.querySelector("#top_target");
     top_target.value = target;

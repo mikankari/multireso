@@ -1,12 +1,7 @@
 {
     "name": "jp.ac.kanagawa-it.s1223066.multireso",
+    "version": "1.0.0",
     "title": "Multi screen resolutions checker",
-    "description": "",
-    "homepage": "", // URL for your project
-    "version": "1.0.0 beta",
-    "author": "",
-    "license": "",
-    "engines": {
-        "brackets": ">=0.20.0"
-    }
+    "homepage": "https://github.com/mikankari/multireso/",
+    "author": "mikankari"
 }
