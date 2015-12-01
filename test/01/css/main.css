@@ -1,15 +1,80 @@
-a {
-  color: #000000;
-  text-decoration: none; }
+body, h1, h2 {
+  margin: 0px;
+  padding: 0px;
+  font-family: sans-serif;
+  font-weight: normal;
+}
 
-.button {
-  display: inline-block; }
+body {
+  font-size: 87.5%;
+}
 
-header nav li {
-  width: 100px; }
+header, #contents, footer {
+  padding: 20px;
+}
 
-.nav-button {
-  display: block; }
+header {
+  background-color: #cccccc;
+}
 
-nav {
-  display: none; }
+footer {
+  background-color: #cccccc;
+}
+
+section:not(:last-child), aside:not(:last-child) {
+  margin-bottom: 10px;
+}
+section h2, section .folder, aside h2, aside .folder {
+  padding: 0px 5px;
+}
+section h2, aside h2 {
+  background-color: #cccccc;
+}
+section .folder, aside .folder {
+  border: 1px solid #cccccc;
+}
+
+aside {
+  margin-left: 0px;
+  margin-top: 20px;
+}
+aside h2 {
+  font-size: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .clearfix:after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+  .clearfix > * {
+    float: left;
+  }
+
+  .main {
+    width: 50%;
+  }
+
+  .sub1, .sub2 {
+    width: 50%;
+  }
+
+  aside {
+    margin-left: 20px;
+    margin-top: 0px;
+  }
+
+  .sub2 aside {
+    margin-top: 10px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .sub1, .sub2 {
+    width: 25%;
+  }
+
+  .sub2 aside {
+    margin-top: 0px;
+  }
+}

@@ -1,1 +1,1 @@
-window.launch_url="http://127.0.0.1:60107/www/index.html";
+window.launch_url="http://127.0.0.1:60107/test/01/index.html";
