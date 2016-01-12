@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   "use strict";
-  var DefaultDialogs, DefaultLauncher, Dialogs, ExtensionUtils, FileSystem, FileUtils, LiveDevMultiBrowser, LiveDevelopment, NativeApp, PreferencesManager, icon, iconClicked, root;
+  var DefaultDialogs, DefaultLauncher, Dialogs, ExtensionUtils, FileSystem, FileUtils, LiveDevMultiBrowser, LiveDevelopment, NativeApp, PreferencesManager, icon, iconClicked, root_path, root_url;
   LiveDevMultiBrowser = brackets.getModule("LiveDevelopment/LiveDevMultiBrowser");
   LiveDevelopment = brackets.getModule("LiveDevelopment/LiveDevelopment");
   DefaultLauncher = brackets.getModule("LiveDevelopment/MultiBrowserImpl/launchers/Launcher");
@@ -11,7 +11,17 @@ define(function(require, exports, module) {
   DefaultDialogs = brackets.getModule("widgets/DefaultDialogs");
   FileSystem = brackets.getModule("filesystem/FileSystem");
   FileUtils = brackets.getModule("file/FileUtils");
-  root = brackets.platform === "win" ? "file:///" + (ExtensionUtils.getModulePath(module)) : "file://" + (ExtensionUtils.getModulePath(module));
+  root_path = ExtensionUtils.getModulePath(module);
+  root_path = root_path.replace(/\ /g, "%20");
+  console.log("[multireso] " + root_path);
+  root_url = [];
+  root_url.push("file://");
+  if (brackets.platform === "win") {
+    root_url.push("/");
+  }
+  root_url.push(root_path);
+  root_url = root_url.join("");
+  console.log("[multireso] " + root_url);
   iconClicked = function(event) {
     var multibrowser;
     multibrowser = PreferencesManager.getExtensionPrefs("livedev").get("multibrowser");
@@ -25,7 +35,7 @@ define(function(require, exports, module) {
             promise = FileUtils.writeText(file, "window.launch_url=\"" + url + "\";", true);
             return promise.done((function(_this) {
               return function() {
-                return NativeApp.openURLInDefaultBrowser("" + root + "www/index.html");
+                return NativeApp.openURLInDefaultBrowser("" + root_url + "www/index.html");
               };
             })(this));
           }
@@ -41,7 +51,7 @@ define(function(require, exports, module) {
     }
   };
   icon = $("<a href=\"#\"></a>").css({
-    backgroundImage: "url(" + root + "button-sprites.svg)",
+    backgroundImage: "url(" + root_url + "button-sprites.svg)",
     backgroundPosition: "0px 0px"
   }).on("click", iconClicked).appendTo($("#main-toolbar .buttons"));
 });

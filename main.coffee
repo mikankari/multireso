@@ -13,11 +13,15 @@ define (require, exports, module) ->
 	FileSystem = brackets.getModule "filesystem/FileSystem"
 	FileUtils = brackets.getModule "file/FileUtils"
 	
-	root =
-		if brackets.platform is "win"
-			"file:///#{ExtensionUtils.getModulePath module}"
-		else
-			"file://#{ExtensionUtils.getModulePath module}"
+	root_path = ExtensionUtils.getModulePath module
+	root_path = root_path.replace /\ /g, "%20"
+	console.log "[multireso] #{root_path}"
+	root_url = []
+	root_url.push "file://"
+	root_url.push "/" if brackets.platform is "win"
+	root_url.push root_path
+	root_url = root_url.join ""
+	console.log "[multireso] #{root_url}"
 	
 	iconClicked = (event) ->
 		multibrowser = PreferencesManager.getExtensionPrefs("livedev").get "multibrowser"
@@ -29,7 +33,7 @@ define (require, exports, module) ->
 						file = FileSystem.getFileForPath "#{ExtensionUtils.getModulePath module}www/js/config.js"
 						promise = FileUtils.writeText file, "window.launch_url=\"#{url}\";", true
 						promise.done =>
-							NativeApp.openURLInDefaultBrowser "#{root}www/index.html"
+							NativeApp.openURLInDefaultBrowser "#{root_url}www/index.html"
 				}
 				LiveDevMultiBrowser.open()
 			else
@@ -44,7 +48,7 @@ define (require, exports, module) ->
 		return
 	
 	icon = $("<a href=\"#\"></a>").css({
-		backgroundImage: "url(#{root}button-sprites.svg)"
+		backgroundImage: "url(#{root_url}button-sprites.svg)"
 		backgroundPosition: "0px 0px"
 	}).on("click", iconClicked).appendTo $ "#main-toolbar .buttons"
 	
