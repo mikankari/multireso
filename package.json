@@ -1,6 +1,6 @@
 {
     "name": "jp.ac.kanagawa-it.s1223066.multireso",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "title": "Live Preview for Responsive",
     "description": "Show two Live Previews for base CSS and difference CSS. Size of Live Previews can change for various resolutions.",
     "homepage": "https://github.com/mikankari/multireso/",
