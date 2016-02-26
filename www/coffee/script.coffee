@@ -73,8 +73,8 @@ init = (event) ->
 
 #	for frame in iframes
 #		frame.src = target
-	top_target = document.querySelector "#top_target"
-	top_target.value = target
+#	top_target = document.querySelector "#top_target"
+#	top_target.value = target
 	return
 
 topDoneClicked = (event) ->
@@ -86,8 +86,8 @@ topDoneClicked = (event) ->
 		checker.style.display = "block"
 #		top_editmode.nextSibling.style.display = "inline"
 
-		top_target = document.querySelector "#top_target"
-		target = top_target.value
+#		top_target = document.querySelector "#top_target"
+#		target = top_target.value
 		top_resolutions = document.querySelector "#top_resolutions"
 		resolutions = for option in top_resolutions.options
 			split = option.value.split " x "
@@ -114,7 +114,7 @@ topDoneClicked = (event) ->
 			console.log "frame#{frame_index}-tab-#{frame_index}"
 			document.querySelector("#frame#{frame_index}-tab-#{frame_index}").click()
 	else
-		top_done.nextSibling.innerHTML = "Check!"
+		top_done.nextSibling.innerHTML = "Start!"
 		top.style.display = "block"
 		checker.style.display = "none"
 #		top_editmode.nextSibling.style.display = "none"

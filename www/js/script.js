@@ -16,7 +16,7 @@
   resolutions = null;
 
   init = function(event) {
-    var top_add, top_delete, top_done, top_target;
+    var top_add, top_delete, top_done;
     top = document.querySelector("#top");
     top_done = document.querySelector("#top_done");
     top_done.addEventListener("change", topDoneClicked, false);
@@ -53,19 +53,15 @@
     });
     target = window.launch_url;
     resolutions = [];
-    top_target = document.querySelector("#top_target");
-    top_target.value = target;
   };
 
   topDoneClicked = function(event) {
-    var frame_index, frame_value, label, option, radio, resolution_index, resolution_value, split, top_done, top_resolutions, top_target, _i, _j, _len, _len1;
+    var frame_index, frame_value, label, option, radio, resolution_index, resolution_value, split, top_done, top_resolutions, _i, _j, _len, _len1;
     top_done = event.target;
     if (top_done.checked) {
       top_done.nextSibling.innerHTML = "Back";
       top.style.display = "none";
       checker.style.display = "block";
-      top_target = document.querySelector("#top_target");
-      target = top_target.value;
       top_resolutions = document.querySelector("#top_resolutions");
       resolutions = (function() {
         var _i, _len, _ref, _results;
@@ -110,7 +106,7 @@
         document.querySelector("#frame" + frame_index + "-tab-" + frame_index).click();
       }
     } else {
-      top_done.nextSibling.innerHTML = "Check!";
+      top_done.nextSibling.innerHTML = "Start!";
       top.style.display = "block";
       checker.style.display = "none";
     }

@@ -3,7 +3,7 @@ Extension for [Brackets](https://github.com/adobe/brackets/).
 
 Show two Live Previews for base CSS and difference CSS. Size of Live Previews can change for various resolutions.
 
-[Testing screen](screenshots/testing.png?raw=true)
+![Testing screen](screenshots/testing.png?raw=true)
 
 ##Installation
 
@@ -15,6 +15,7 @@ Show two Live Previews for base CSS and difference CSS. Size of Live Previews ca
 
 1. Open HTML or CSS File
 2. Click the "PC, mobile, and thunder" icon in the toolbar
-3. Detect resolutions (By default, 320x568, 768x1024, and 1240x1024)
-[Settings screen](screenshots/settings.png?raw=true)
-4. Click the "Check!" button
+3. Decide resolutions (By default, 320x568, 768x1024, and 1240x1024)
+4. Click the **Start!** button
+
+![Settings screen](screenshots/settings.png?raw=true)
