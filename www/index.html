@@ -3,75 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Live Preview for Responsive</title>
-<link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/jquery-2.2.4.min.js"></script>
 <script src="js/config.js"></script>
 <script src="js/script.js"></script>
 </head>
 
 <body>
-<div id="container">
+<div class="container">
 	<header>
 		<div>
 			<h1>Live Preview for Responsive</h1>
 		</div>
 	</header>
-	<div id="content">
+	<div class="content">
 		<section>
-			<div id="top">
+			<div id="settings">
 				<ol>
-<!--
-					<li>
-						<div>
-							<h2>Detect Target</h2>
-							<p>Upload target HTML file.</p>
-							<div class="h2_content">
-								<input type="file" id="top_target">
-								<label for="top_target"></label><input type="text" id="top_target" disabled>
-							</div>
-						</div>
-					</li>
--->
 					<li>
 						<div>
 							<h2>Decide Resolutions</h2>
 							<p>Size used in Live Previews.</p>
 							<div class="clearfix h2_content">
-								<div class="left">
+								<div>
 									<div class="controls">
-										<select id="top_resolutions" multiple="multiple">
+										<select class="resolutions" multiple="multiple">
 											<option value="320 x 568">320 x 568</option>
 											<option value="768 x 1024">768 x 1024</option>
 											<option value="1280 x 1024">1280 x 1024</option>
 										</select>
 									</div>
-									<div class="buttons"><button id="top_delete">Delete selection</button></div>
+									<div class="buttons">
+										<button class="delete">Delete selection</button>
+									</div>
 								</div>
-								<div class="left">
-									<div class="controls"><input type="number" id="top_width" min="100"> x <input type="number" id="top_height" min="100"></div>
-									<div class="buttons"><button id="top_add">Add new resolution</button></div>
+								<div>
+									<div class="controls">
+										<input type="number" class="width" min="100"> x <input type="number" class="height" min="100">
+									</div>
+									<div class="buttons">
+										<button class="add">Add new resolution</button>
+									</div>
 								</div>
 							</div>
-
 						</div>
 					</li>
 				</ol>
 			</div>
-			<div id="top_buttons">
-				<input type="checkbox" id="top_done"><label for="top_done">Start!</label>
-<!--				<input type="checkbox" id="top_editmode"><label for="top_editmode">Edit Mode</label>-->
+			<div id="navigation">
+				<input type="checkbox" id="navigation-done"><label for="navigation-done">Start!</label>
 			</div>
 		</section>
 		<section>
-			<div id="checker">
-				<div class="clearfix">
-					<div class="left first">
+			<div id="preview">
+				<div class="clearfix list">
+					<div>
 						<div class="tab"></div>
 						<div class="content">
 							<iframe src="about:blank"></iframe>
 						</div>
 					</div>
-					<div class="left second">
+					<div>
 						<div class="tab"></div>
 						<div class="content">
 							<iframe src="about:blank"></iframe>
@@ -79,83 +71,6 @@
 					</div>
 				</div>
 			</div>
-<!--
-			<div id="styleeditor" class="dialog" draggable="true">
-				<header><h2>Style</h2></header>
-				<div class="content">
-					<div class="clearfix">
-						<div class="left">
-							<section>
-								<h3>Resolution</h3>
-								<div><label><input type="number" id="styleeditor_minresolution">px</label> ~ <label><input type="number" id="styleeditor_maxresolution">px</label></div>
-							</section>
-							<section>
-								<h3>Selector</h3>
-								<div><input type="text" id="styleeditor_selector"></div>
-							</section>
-							<section>
-								<h3>margin</h3>
-								<div>
-									<div class="table">
-										<div>
-											<div></div>
-											<div><input type="number" id="styleeditor_margintop"></div>
-											<div></div>
-										</div>
-										<div>
-											<div><input type="number" id="styleeditor_marginleft"></div>
-											<div></div>
-											<div><input type="number" id="styleeditor_marginright"></div>
-										</div>
-										<div>
-											<div></div>
-											<div><input type="number" id="styleeditor_marginbottom"></div>
-											<div></div>
-										</div>
-									</div>
-								</div>
-							</section>
-							<section>
-								<h3>padding</h3>
-								<div>
-									<div class="table">
-										<div>
-											<div></div>
-											<div><input type="number" id="styleeditor_paddingtop" min="0"></div>
-											<div></div>
-										</div>
-										<div>
-											<div><input type="number" id="styleeditor_paddingleft" min="0"></div>
-											<div></div>
-											<div><input type="number" id="styleeditor_paddingright" min="0"></div>
-										</div>
-										<div>
-											<div></div>
-											<div><input type="number" id="styleeditor_paddingbottom" min="0"></div>
-											<div></div>
-										</div>
-									</div>
-								</div>
-							</section>
-							<section>
-								<h3>width, height</h3>
-								<div><input type="number" id="styleeditor_width"> x <input type="number" id="styleeditor_height"></div>
-							</section>
-							<section>
-								<h3>custom</h3>
-								<div><input type="text" id="styleeditor_property">: <input type="text" id="styleeditor_value">;</div>
-							</section>
-						</div>
-						<div class="left">
-							<textarea id="styleeditor_textarea"></textarea>
-						</div>
-					</div>
-					<div class="clear buttons">
-						<button id="styleeditor_close">×</button>
-					</div>
-				</div>
-			</div>
--->
 		</section>
 	</div>
 </div>

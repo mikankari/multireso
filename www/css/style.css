@@ -1,32 +1,36 @@
 html {
+  font-family: sans-serif;
   font-size: 0.875rem; }
 
 body {
-  margin: 0px; }
+  margin: 0; }
 
-#container {
+.container {
   padding: 1.25rem; }
 
 h1, h2, h3 {
   font-weight: normal;
-  margin: 0em; }
+  margin: 0; }
 
 p {
-  margin: 0em; }
+  margin: 0; }
 
 h1 {
-  font-size: 2.0rem; }
+  font-size: 2rem; }
 
 h2 {
   font-size: 1.5rem; }
 
 ul, ol {
-  margin: 0px;
-  padding-left: 0em; }
+  margin: 0;
+  padding-left: 0; }
   ul li, ol li {
-    margin-left: 0em;
-    padding-left: 0em;
+    margin-left: 0;
+    padding-left: 0;
     list-style-type: none; }
+
+input, button, select {
+  font-size: 1rem; }
 
 input[type=number] {
   width: 60px;
@@ -37,127 +41,88 @@ button {
   border: 1px solid #666666;
   border-radius: 3px;
   padding: 2px 6px 3px; }
+  button:active {
+    color: #000000;
+    background-image: linear-gradient(#cccccc, #ffffff); }
 
 .clearfix {
-  overflow: hidden;
-  *zoom: 1; }
+  overflow: hidden; }
   .clearfix > div {
     float: left; }
   .clearfix > div:not(:last-child) {
     margin-right: 1.25rem; }
 
-.table {
-  display: table; }
-  .table > div {
-    display: table-row; }
-    .table > div > div {
-      display: table-cell;
-      min-width: 60px; }
-
 input[type="checkbox"] {
   display: none; }
   input[type="checkbox"] + label {
-    background-image: linear-gradient(#cccccc, #999999);
+    background-image: linear-gradient(#ffffff, #cccccc);
     border: 1px solid #666666;
     border-radius: 3px;
     padding: 2px 6px 3px; }
-  input[type="checkbox"]:checked + label {
+    input[type="checkbox"] + label:active {
+      color: #000000;
+      background-image: linear-gradient(#cccccc, #ffffff); }
+  input[type="checkbox"]:active + label {
     background-image: linear-gradient(#cccccc, #ffffff); }
-
-.dialog header {
-  background-image: linear-gradient(#666666, #333333);
-  color: #ffffff;
-  line-height: 30px;
-  padding: 0px 0.625rem; }
-  .dialog header h2 {
-    font-size: 0.875rem;
-    font-weight: bold; }
-.dialog header + div {
-  background-color: #eeeeee;
-  border: 1px solid #666666;
-  padding: 1.25rem; }
 
 header h1 {
   padding-bottom: 1.25rem; }
 
-#top li {
+#settings li {
   font-size: 1.5em;
   list-style-type: decimal;
   list-style-position: inside; }
-  #top li > div {
-    font-size: 1.0rem; }
-    #top li > div h2 {
+  #settings li > div {
+    font-size: 1rem; }
+    #settings li > div h2 {
       border-bottom: 1px solid #cccccc; }
-    #top li > div > *:not(h2) {
+    #settings li > div > *:not(h2) {
       margin-left: 1.25rem; }
-    #top li > div .h2_content {
+    #settings li > div .h2_content {
       padding: 1.25rem 0em; }
-  #top li #top_target {
-    width: 348px; }
-  #top li #top_resolutions {
+  #settings li .resolutions {
     width: 100%;
     height: 100%; }
-  #top li #top_width, #top li #top_height {
+  #settings li .width, #settings li .height {
     width: 60px; }
-  #top li .controls {
+  #settings li .controls {
     text-align: center;
     line-height: 90px;
     width: 174px;
     height: 90px; }
-  #top li .buttons {
+  #settings li .buttons {
     text-align: center;
     margin-top: 1.25rem; }
-  #top li .h2_content > div {
+  #settings li .h2_content > div {
     margin-right: 1.25rem; }
 
-#top_buttons {
+#navigation {
   border-top: 1px solid #cccccc;
-  padding: 1.25rem 0em 1.25rem 1.25rem; }
-  #top_buttons > *:not(:last-child) {
+  padding: 1.25rem 0 1.25rem 1.25rem; }
+  #navigation > *:not(:last-child) {
     margin-right: 0.8125rem; }
-  #top_buttons #top_done + label, #top_buttons #top_done:checked + label {
-    background-image: linear-gradient(#ffffff, #cccccc); }
 
-#checker .content {
-  line-height: 0em; }
-#checker .clearfix {
+#preview .content {
+  line-height: 0; }
+#preview .list {
   width: 2604px; }
-#checker iframe {
+#preview iframe {
   border: 1px solid #000000; }
-#checker .tab input[type="radio"] {
+#preview .tab input[type="radio"] {
   display: none; }
-#checker .tab label div {
-  background-image: linear-gradient(#cccccc, #999999);
+#preview .tab label {
+  background-image: linear-gradient(#ffffff, #cccccc);
   border: 1px solid #666666;
-  border-bottom: 0px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 3px;
+  padding: 2px 6px 3px;
+  background-image: linear-gradient(#cccccc, #999999);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
   padding: 0px 10px;
   line-height: 30px;
   display: inline-block; }
-#checker .tab input[type="radio"]:checked + label div {
+  #preview .tab label:active {
+    color: #000000;
+    background-image: linear-gradient(#cccccc, #ffffff); }
+#preview .tab input[type="radio"]:checked + label {
   background-image: linear-gradient(#cccccc, #ffffff); }
-
-#styleeditor {
-  position: absolute;
-  left: 200px;
-  top: 200px;
-  z-index: 100; }
-  #styleeditor textarea, #styleeditor .CodeMirror {
-    width: 210px;
-    border: 1px solid #999999;
-    font-size: 1.182rem; }
-  #styleeditor h3 {
-    background-color: #cccccc; }
-  #styleeditor section:nth-child(1) h3, #styleeditor section:nth-child(2) h3 {
-    background-color: transparent;
-    border-bottom: 1px solid #cccccc; }
-  #styleeditor h3 + div {
-    margin: 0.625rem 0px; }
-  #styleeditor .buttons {
-    position: absolute;
-    z-index: 110;
-    right: 4px;
-    top: 3px; }
-    #styleeditor .buttons button {
-      background-image: linear-gradient(#ebadad, #d65c5c); }

@@ -3,7 +3,6 @@ define (require, exports, module) ->
 	"use strict"
 
 	LiveDevMultiBrowser = brackets.getModule "LiveDevelopment/LiveDevMultiBrowser"
-	LiveDevelopment = brackets.getModule "LiveDevelopment/LiveDevelopment"
 	DefaultLauncher = brackets.getModule "LiveDevelopment/MultiBrowserImpl/launchers/Launcher"
 	NativeApp = brackets.getModule "utils/NativeApp"
 	PreferencesManager = brackets.getModule "preferences/PreferencesManager"
@@ -14,42 +13,58 @@ define (require, exports, module) ->
 	FileUtils = brackets.getModule "file/FileUtils"
 	
 	root_path = ExtensionUtils.getModulePath module
-	root_path = root_path.replace /\ /g, "%20"
-	console.log "[multireso] #{root_path}"
-	root_url = []
-	root_url.push "file://"
-	root_url.push "/" if brackets.platform is "win"
-	root_url.push root_path
-	root_url = root_url.join ""
-	console.log "[multireso] #{root_url}"
+		.replace /\ /g, "%20"
+	
+	root_url = [
+		"file://"
+		"/" if brackets.platform is "win"
+		root_path
+	].join ""
+	
+	start = ->
+		LiveDevMultiBrowser.setLauncher {
+			launch: (url) ->
+				file = FileSystem.getFileForPath "#{ExtensionUtils.getModulePath module}www/js/config.js"
+				FileUtils.writeText file, "window.launch_url=\"#{url}\";", true
+					.done ->
+						NativeApp.openURLInDefaultBrowser "#{root_url}www/index.html"
+		}
+		LiveDevMultiBrowser.open()
+	
+	stop = ->
+		LiveDevMultiBrowser.close()
+		LiveDevMultiBrowser.setLauncher DefaultLauncher
 	
 	iconClicked = (event) ->
-		multibrowser = PreferencesManager.getExtensionPrefs("livedev").get "multibrowser"
+		multibrowser = PreferencesManager.getExtensionPrefs "livedev"
+			.get "multibrowser"
 		if multibrowser
 			if not LiveDevMultiBrowser.isActive()
-				icon.css "backgroundPosition", "0px -24px"
-				LiveDevMultiBrowser.setLauncher {
-					launch: (url) ->
-						file = FileSystem.getFileForPath "#{ExtensionUtils.getModulePath module}www/js/config.js"
-						promise = FileUtils.writeText file, "window.launch_url=\"#{url}\";", true
-						promise.done =>
-							NativeApp.openURLInDefaultBrowser "#{root_url}www/index.html"
-				}
-				LiveDevMultiBrowser.open()
+				start()
 			else
-				icon.css "backgroundPosition", "0px 0px"
-				LiveDevMultiBrowser.close()
-				LiveDevMultiBrowser.setLauncher DefaultLauncher
+				stop()
 		else
 			Dialogs.showModalDialog DefaultDialogs.DIALOG_ID_ERROR,
-				"つくってない",
-				"現在は試験ライブプレビューのみで動作します。<br>メニューのファイルから「試験ライブプレビューを有効にする」にチェックを入れて下さい。"
-#			LiveDevelopment.open()
+				"Not supported",
+				"Currently it works only for the Experimental Live Preview.<br>Please select the \"Enable Experimental Live Preview\" from \"File\" menu."
 		return
 	
-	icon = $("<a href=\"#\"></a>").css({
-		backgroundImage: "url(#{root_url}button-sprites.svg)"
-		backgroundPosition: "0px 0px"
-	}).on("click", iconClicked).appendTo $ "#main-toolbar .buttons"
+	changedIconStatus = ->
+		if LiveDevMultiBrowser.isActive()
+			icon.css "backgroundPosition", "0px -24px"
+		else
+			icon.css "backgroundPosition", "0px 0px"
+	
+	createIcon = ->
+		$ "<a href=\"#\"></a>"
+			.css {
+				backgroundImage: "url(#{root_url}button-sprites.svg)"
+				backgroundPosition: "0px 0px"
+			}
+			.on "click", iconClicked
+			.appendTo $ "#main-toolbar .buttons"
+	
+	icon = createIcon()
+	LiveDevMultiBrowser.on "statusChange", changedIconStatus
 	
 	return

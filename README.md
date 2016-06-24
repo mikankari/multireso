@@ -3,7 +3,7 @@ Extension for [Brackets](https://github.com/adobe/brackets/).
 
 Show two Live Previews for base CSS and difference CSS. Size of Live Previews can change for various resolutions.
 
-![Testing screen](screenshots/preview.png?raw=true)
+![Preview screen](screenshots/preview.png?raw=true)
 
 ##Installation
 

@@ -1,75 +1,61 @@
 (function() {
-  var checker, iframes, init, resolutions, tabs, target, top, topDoneClicked, topEditmodeClicked, top_editmode, updateFrameSize;
+  var doneClicked, done_button, iframes, init, preview_div, resolutions, settings_div, tabs;
 
-  top = null;
+  settings_div = null;
 
-  top_editmode = null;
+  preview_div = null;
 
-  checker = null;
-
-  iframes = null;
+  done_button = null;
 
   tabs = null;
 
-  target = null;
+  iframes = null;
 
   resolutions = null;
 
   init = function(event) {
-    var top_add, top_delete, top_done;
-    top = document.querySelector("#top");
-    top_done = document.querySelector("#top_done");
-    top_done.addEventListener("change", topDoneClicked, false);
-    checker = document.querySelector("#checker");
-    iframes = [document.querySelector("#checker .first iframe"), document.querySelector("#checker .second iframe")];
-    tabs = [document.querySelector("#checker .first .tab"), document.querySelector("#checker .second .tab")];
-    top_delete = document.querySelector("#top_delete");
-    top_delete.addEventListener("click", function(event) {
-      var option, top_resolutions;
-      top_resolutions = document.querySelector("#top_resolutions");
-      option = top_resolutions.options[top_resolutions.selectedIndex];
-      top_resolutions.removeChild(option);
-    }, false);
-    top_add = document.querySelector("#top_add");
-    top_add.addEventListener("click", function(event) {
-      var height, option, top_height, top_resolutions, top_width, width;
-      top_width = document.querySelector("#top_width");
-      top_height = document.querySelector("#top_height");
-      width = top_width.value;
-      height = top_height.value;
-      if (width < 100) {
-        return;
-      } else if (height < 100) {
+    var add_button, delete_button;
+    settings_div = $("#settings");
+    preview_div = $("#preview");
+    done_button = $("#navigation-done");
+    done_button.on("change", doneClicked);
+    tabs = $("#preview .tab");
+    iframes = $("#preview iframe");
+    iframes.attr("src", window.launch_url);
+    delete_button = $("#settings .delete");
+    delete_button.on("click", function(event) {
+      var selectedOptions;
+      selectedOptions = $("#settings .resolutions option:selected");
+      return selectedOptions.remove();
+    });
+    add_button = $("#settings .add");
+    add_button.on("click", function(event) {
+      var height, new_option, width;
+      width = $("#settings .width").val();
+      height = $("#settings .height").val();
+      if (width < 100 || height < 100) {
         return;
       }
-      option = document.createElement("option");
-      option.value = width + " x " + height;
-      option.innerHTML = width + " x " + height;
-      top_resolutions = document.querySelector("#top_resolutions");
-      top_resolutions.appendChild(option);
-    }, false);
-    topDoneClicked({
-      target: top_done
+      return new_option = $("<option value=\"" + width + " x " + height + "\">" + width + " x " + height + "</option>").appendTo($("#settings .resolutions"));
     });
-    target = window.launch_url;
     resolutions = [];
+    return doneClicked();
   };
 
-  topDoneClicked = function(event) {
-    var frame_index, frame_value, label, option, radio, resolution_index, resolution_value, split, top_done, top_resolutions, _i, _j, _len, _len1;
-    top_done = event.target;
-    if (top_done.checked) {
-      top_done.nextSibling.innerHTML = "Back";
-      top.style.display = "none";
-      checker.style.display = "block";
-      top_resolutions = document.querySelector("#top_resolutions");
+  doneClicked = function(event) {
+    var key, key2, options, split, value, value2, _i, _j, _len, _len1, _ref, _results;
+    if (done_button.is(":checked")) {
+      done_button.next().text("Back");
+      settings_div.hide();
+      preview_div.show();
+      options = $("#settings .resolutions option");
       resolutions = (function() {
         var _i, _len, _ref, _results;
-        _ref = top_resolutions.options;
+        _ref = options.get();
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          option = _ref[_i];
-          split = option.value.split(" x ");
+          value = _ref[_i];
+          split = value.value.split(" x ");
           _results.push({
             width: split[0],
             height: split[1]
@@ -77,65 +63,32 @@
         }
         return _results;
       })();
-      for (frame_index = _i = 0, _len = iframes.length; _i < _len; frame_index = ++_i) {
-        frame_value = iframes[frame_index];
-        while (tabs[frame_index].hasChildNodes()) {
-          tabs[frame_index].removeChild(tabs[frame_index].lastChild);
+      _ref = tabs.get();
+      _results = [];
+      for (key = _i = 0, _len = _ref.length; _i < _len; key = ++_i) {
+        value = _ref[key];
+        value = $(value);
+        value.empty();
+        for (key2 = _j = 0, _len1 = resolutions.length; _j < _len1; key2 = ++_j) {
+          value2 = resolutions[key2];
+          $("<input type=\"radio\" name=\"frame" + key + "-tab\" id=\"frame" + key + "-tab" + key2 + "\" data-frame=\"" + key + "\" data-resolution=\"" + key2 + "\">").on("change", function(event) {
+            var frame_index, resolution_index;
+            frame_index = $(event.target).attr("data-frame");
+            resolution_index = $(event.target).attr("data-resolution");
+            return iframes.eq(frame_index).width(resolutions[resolution_index].width).height(resolutions[resolution_index].height);
+          }).appendTo(value);
+          $("<label for=\"frame" + key + "-tab" + key2 + "\">" + value2.width + " x " + value2.height + "</label>").appendTo(value);
         }
-        for (resolution_index = _j = 0, _len1 = resolutions.length; _j < _len1; resolution_index = ++_j) {
-          resolution_value = resolutions[resolution_index];
-          radio = document.createElement("input");
-          radio.type = "radio";
-          radio.name = "frame" + frame_index + "-tab";
-          radio.id = "frame" + frame_index + "-tab-" + resolution_index;
-          radio.setAttribute("data-frame", frame_index);
-          radio.setAttribute("data-resolution", resolution_index);
-          radio.addEventListener("change", (function(_this) {
-            return function(event) {
-              updateFrameSize(event.target.getAttribute("data-frame"), event.target.getAttribute("data-resolution"));
-            };
-          })(this), false);
-          tabs[frame_index].appendChild(radio);
-          label = document.createElement("label");
-          label.htmlFor = "frame" + frame_index + "-tab-" + resolution_index;
-          label.innerHTML = "<div>" + resolution_value.width + " x " + resolution_value.height + "</div>";
-          tabs[frame_index].appendChild(label);
-        }
-        frame_value.src = target;
-        console.log("frame" + frame_index + "-tab-" + frame_index);
-        document.querySelector("#frame" + frame_index + "-tab-" + frame_index).click();
+        _results.push($("#frame" + key + "-tab" + key).click());
       }
+      return _results;
     } else {
-      top_done.nextSibling.innerHTML = "Start!";
-      top.style.display = "block";
-      checker.style.display = "none";
+      done_button.next().text("Start!");
+      preview_div.hide();
+      return settings_div.show();
     }
   };
 
-  topEditmodeClicked = function(event) {
-    if (event.target.checked) {
-      styleeditor.style.display = "block";
-    } else {
-      styleeditor.style.display = "none";
-    }
-  };
-
-  updateFrameSize = function(frame_index, resolution_index) {
-    var iframe, key, resolution, value, _ref, _results;
-    iframe = iframes[frame_index];
-    resolution = resolutions[resolution_index];
-    _ref = {
-      width: "" + resolution.width + "px",
-      height: "" + resolution.height + "px"
-    };
-    _results = [];
-    for (key in _ref) {
-      value = _ref[key];
-      _results.push(iframe.style[key] = value);
-    }
-    return _results;
-  };
-
-  window.addEventListener("DOMContentLoaded", init, false);
+  $(init);
 
 }).call(this);
