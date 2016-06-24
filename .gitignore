@@ -1,1 +1,5 @@
 .*
+sass
+*.sass
+coffee
+*.coffee
